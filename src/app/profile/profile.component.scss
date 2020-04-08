@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+
+.trade-table {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.above-table {
+    display: flex;
+    justify-content: space-between;  
+}
+
+mat-paginator {
+    width: 100%;
+}
+
+mat-input {
+    width: 40%;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}

@@ -1,0 +1,39 @@
+<div style="text-align: center;">
+    <mat-card>
+        <section class="mat-typography">
+            <h2 class="login-title">Register</h2>
+        </section>
+        <form [formGroup]="signUpForm" (ngSubmit)="submitSignUpForm()">
+            <mat-form-field class="form-group">
+                <input matInput placeholder="name" class="form-control" formControlName="name" #name>
+            </mat-form-field>            
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="username" class="form-control" formControlName="username" #username>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput type="password" placeholder="password" class="form-control" formControlName="password" #password>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-group">
+                <input matInput placeholder="email address" class="form-control" formControlName="email" #email>
+            </mat-form-field>
+
+
+            <!-- <div class="form-group">
+                <label class="center-block">Password:
+                    <input type="password" class="form-control" formControlName="password">
+                </label>
+            </div>
+            <div style="margin-bottom: 1em">
+                <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">Login</button>
+            </div> -->
+        <mat-divider></mat-divider>
+        <br><br>
+        <button class="submit-button" type="button" (click)="submitSignUpForm()" 
+        [disabled]="signUpForm.pristine || signUpForm.invalid" mat-raised-button color="primary"
+        [routerLink]="['/login']" >Register</button>
+        </form>
+    </mat-card>
+</div>

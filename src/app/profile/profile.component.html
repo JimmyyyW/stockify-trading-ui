@@ -1,0 +1,51 @@
+<p>profile works!</p>
+
+<!-- <div *ngIf="trades | async ; else loading"></div>
+
+<li *ngFor="let trade of trades | async">
+    {{ trade.value }}
+</li> -->
+<mat-card style="padding-left: 10px; padding-right: 10px;">
+    <h2 style="text-align: center; color: rgb(134, 49, 190);">Trade History</h2>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    <div class="trade-table">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="stockSymbol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{ element.stockSymbol }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Exchange value </th>
+                <td mat-cell *matCellDef="let element"> {{ element.total }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="value">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Share Price </th>
+                <td mat-cell *matCellDef="let element"> {{ element.value }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="volume">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Share Volume </th>
+                <td mat-cell *matCellDef="let element"> {{ element.volume }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let element"> {{ element.date }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <br>
+
+    </div>
+</mat-card>
+
+
+<ng-template #loading>Loading stuff...</ng-template>

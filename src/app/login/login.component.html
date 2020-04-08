@@ -1,0 +1,36 @@
+<div>
+    <mat-card>
+        <section class="mat-typography">
+            <h2 class="login-title">Login</h2>
+        </section>
+        <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+            <mat-form-field class="form-group">
+                <input matInput placeholder="username" class="form-control" formControlName="username" #username>
+            </mat-form-field>
+            <mat-form-field class="form-group">
+                <input matInput type="password" placeholder="password" class="form-control" formControlName="password" #password>
+            </mat-form-field>
+
+
+            <!-- <div class="form-group">
+                <label class="center-block">Password:
+                    <input type="password" class="form-control" formControlName="password">
+                </label>
+            </div>
+            <div style="margin-bottom: 1em">
+                <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">Login</button>
+            </div> -->
+        <mat-divider></mat-divider>
+        <br><br>
+        <button class="btn btn-primary" type="button" (click)="submitLoginForm()" 
+        [disabled]="loginForm.pristine || loginForm.invalid" mat-raised-button color="primary">Login</button>
+        <div class="divider"></div>
+        <button class="btn btn-primary" (click)="redirectToSignUp()" mat-raised-button color="primary">Register</button>
+    </form>
+    </mat-card>
+
+</div>
+<br>
+<div *ngIf="loginError" class="alert alert-danger">
+    <strong>Warning! incorrect cradentials</strong> 
+</div>

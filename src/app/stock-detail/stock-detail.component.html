@@ -1,0 +1,29 @@
+<div *ngIf="stock | async as it; else loading">
+    <mat-card>
+        <mat-list>
+            <mat-divider></mat-divider>
+                <mat-list-item>name: {{it.name}}</mat-list-item><mat-divider></mat-divider>
+                <mat-list-item>symbol: {{it.symbol}}</mat-list-item><mat-divider></mat-divider>
+                <mat-list-item>open: {{it.open}}</mat-list-item><mat-divider></mat-divider>
+                <mat-list-item>close: {{it.close}}</mat-list-item><mat-divider></mat-divider>
+                <mat-list-item>value: {{it.value}}</mat-list-item><mat-divider></mat-divider>
+                <mat-list-item>volume: {{it.volume}}</mat-list-item><mat-divider></mat-divider>
+                <mat-list-item>          
+                    <div class="green" *ngIf="it.isPositive===true">
+                    Gains: +{{it.gains}}
+                    </div>
+                    <div class="red" *ngIf="it.isPositive===false">
+                      Gains: {{it.gains}}
+                    </div></mat-list-item><mat-divider></mat-divider>
+        </mat-list>
+    </mat-card>
+    <br>
+    <div class="return-button">
+        <button mat-button color="primary" routerLink="/stocks">Return</button>
+        <div class="divider"></div>
+        <button class="button2" mat-button color="primary" routerLink="/stocks">Purchase</button>
+        
+    </div>
+</div>
+
+<ng-template #loading>Loading stuff...</ng-template>
