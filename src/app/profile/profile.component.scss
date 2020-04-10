@@ -16,10 +16,24 @@ mat-paginator {
     width: 100%;
 }
 
+// mat-divider {
+//     padding-left: 20%;
+// }
+
+mat-list-item {
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
 mat-input {
     width: 40%;
 }
 
 th.mat-sort-header-sorted {
     color: black;
+}
+
+.information-drop-down {
+    padding-left: 20%;
+    padding-right: 20%;
 }

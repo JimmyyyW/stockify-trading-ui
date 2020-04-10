@@ -4,6 +4,8 @@ import { Trade } from '../model/trade.model';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { User } from '../model/user.model';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -13,14 +15,15 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ProfileComponent implements OnInit {
 
+  user: User;
   trades: Trade[];
   displayedColumns: string[] = ['stockSymbol', 'total', 'value', 'volume', 'date']
-  dataSource: any  
-  
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  dataSource: any
 
-  constructor(private tradeService: TradeService) { }
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  constructor(private tradeService: TradeService, private userService: UserService) { }
 
   ngOnInit(): void {
     //this.trades = this.tradeService.getUserStocks(localStorage.getItem('username'));
@@ -31,8 +34,12 @@ export class ProfileComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.trades);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        })
-    };
-  
+      })
+
+    this.userService.getUserDetails(localStorage.getItem('username')).subscribe((user) => {
+      this.user = user;
+    });
+  };
+
 
 }

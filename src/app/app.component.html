@@ -1,4 +1,8 @@
 <mat-toolbar>
+  <button style="width: 1%;" mat-button type="button" (click)="drawer.toggle()">
+    <mat-icon aria-hidden="false" aria-label="Arrow right">swap_horiz</mat-icon>
+  </button>
+  <div class="divider-small"></div>
   <span>Stockify</span>
   <div class="divider"></div>
   {{ username }}
@@ -9,11 +13,42 @@
   </div>
   
   <button mat-button>
-    <mat-icon aria-hidden="false" aria-label="Home icon" [routerLink]="['/stocks']" routerLinkActive="router-link-active" >home</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Home icon" [routerLink]="['/home']" routerLinkActive="router-link-active" >home</mat-icon>
   </button>
   <button mat-button>
     <mat-icon aria-hidden="false" aria-label="Account circle icon" [routerLink]="['/profile']" routerLinkActive="router-link-active">account_circle</mat-icon>
   </button>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<mat-drawer-container>
+  <mat-drawer #drawer mode="side" style="background-color: rgb(99, 90, 114);">
+  <br>
+  <button mat-button style="background-color: rgb(99, 90, 114);">
+    <mat-icon aria-hidden="false" aria-label="Reporting page icon" [routerLink]="['/stocks']">list</mat-icon>
+  </button>
+  <br><br>
+  <button mat-button style="background-color: rgb(99, 90, 114);">
+    <mat-icon aria-hidden="false" aria-label="Reporting page icon" [routerLink]="['/reports']">receipt</mat-icon>
+  </button>
+  <br><br>
+  <button mat-button style="background-color: rgb(99, 90, 114);">
+    <mat-icon aria-hidden="false" aria-label="Reporting page icon">security</mat-icon>
+  </button>  
+  <br><br>
+  <button mat-button style="background-color: rgb(99, 90, 114);">
+    <mat-icon aria-hidden="false" aria-label="logout button" (click)="openDialog()">power_settings_new</mat-icon>
+  </button>
+
+  </mat-drawer>
+
+  
+  
+  
+  <div class="sidenav-content">    
+    <router-outlet></router-outlet>
+  </div>
+  <br><br><br><br>
+</mat-drawer-container>
+
+
+

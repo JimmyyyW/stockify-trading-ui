@@ -1,5 +1,53 @@
-<p>profile works!</p>
+<br>
+<div class="information-drop-down">
+<h1 style="text-align: center; color: rgb(134, 49, 190);">Your Profile</h1>
+    <mat-expansion-panel>
 
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Information
+        </mat-panel-title>
+        <mat-panel-description style="padding-left: 10%;">
+            See and change your details
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+        <!-- content -->
+        <mat-list>
+
+
+        </mat-list>
+        <mat-divider></mat-divider>
+            <mat-list-item><font color="purple"> Name:</font> {{ user.name }}</mat-list-item>
+        <mat-divider></mat-divider>
+            <mat-list-item>
+                <font color="purple">Username:</font> {{ user.username }}
+            </mat-list-item>
+        <mat-divider></mat-divider>
+            <mat-list-item>
+                <font color="purple">Email:</font> {{ user.email }}
+            </mat-list-item>
+        <mat-divider></mat-divider>
+            <mat-list-item>
+                <font color="purple">Current Balance:</font> {{ user.balance }}
+            </mat-list-item>
+        <mat-divider></mat-divider>
+            <mat-list-item>
+                <font color="purple">Active:</font> {{ user.enabled }}
+            </mat-list-item>
+        <mat-divider></mat-divider>
+            <mat-list-item>
+                <font color="purple">Creation date:</font> {{ user.timeStamp }}
+            </mat-list-item>
+        <mat-divider></mat-divider>
+            <mat-list-item>
+            <button mat-button color="primary">Edit information</button>
+            </mat-list-item>
+    </mat-expansion-panel>
+</div>
+
+<br><br>
 <!-- <div *ngIf="trades | async ; else loading"></div>
 
 <li *ngFor="let trade of trades | async">

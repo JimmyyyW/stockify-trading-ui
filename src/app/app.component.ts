@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,8 @@ export class AppComponent implements OnInit {
   username: string;
 
   constructor(private authService: AuthService,
-    private router: Router){
+    private router: Router,
+    public dialog: MatDialog){
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
@@ -30,6 +33,20 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('login').then(() => window.location.reload());
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LogoutDialogComponent, {
+      width: '250px',
+      data: { yes: 'yes', no: 'no'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('logout dialog closed');
+      if (result == 'yes') {
+        this.logout();
+      }
+    });
   }
 
 }

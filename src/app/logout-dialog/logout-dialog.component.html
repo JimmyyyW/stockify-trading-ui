@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Sign Out</h1>
+<div mat-dialog-content>
+    are you sure you want to leave?
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No</button>
+    <button mat-button color="primary" [mat-dialog-close]="data.yes" cdkFocusInitial>Yes</button>
+</div>

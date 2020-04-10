@@ -7,13 +7,15 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { ReportComponent } from './report/report.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignUpComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'signup', component: SignUpComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'stocks', component: StockListComponent },
+  { path: 'reports', component: ReportComponent },
   { path: 'stocks/:symbol', component: StockDetailComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   {

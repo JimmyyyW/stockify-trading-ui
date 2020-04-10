@@ -16,8 +16,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { StockListComponent } from './stock-list/stock-list.component';
 import { StockService } from './stock.service';
@@ -29,6 +32,9 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TradeService } from './trade.service';
 import "@angular/compiler";
+import { UserService } from './user.service';
+import { ReportComponent } from './report/report.component';
+import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 
 
 
@@ -41,7 +47,9 @@ import "@angular/compiler";
     BuyShareComponent,
     SignUpComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ReportComponent,
+    LogoutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,16 +68,28 @@ import "@angular/compiler";
     MatListModule,
     MatIconModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatExpansionModule,
+    MatSidenavModule,
+    MatDialogModule
   ],
   exports: [
     MatFormFieldModule,
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule,
+    MatDialogModule
   ],
-  providers: [AuthService, StockService, SseServiceService, TradeService],
+  providers: [
+    AuthService, 
+    StockService,
+    SseServiceService,
+    TradeService,
+    UserService
+  ],
+  entryComponents: [LogoutDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
