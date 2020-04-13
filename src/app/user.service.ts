@@ -17,11 +17,10 @@ export class UserService {
     withCredentials: true,
     secure: false
   }
-  
 
   constructor(private http: HttpClient) { }
 
   getUserDetails(currentUser: string): Observable<User> {
-    return this.http.get<User>(`${this.baseUri}/api/v2/user/find/Jammm2essss`, this.option);
+    return this.http.get<User>(`${this.baseUri}/api/v2/user/find/${currentUser}`, this.option);
   }
 }

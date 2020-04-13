@@ -1,0 +1,41 @@
+
+<mat-dialog-content [formGroup]="form">
+    
+      <mat-form-field>
+        <mat-label>Card Type</mat-label>
+        <select matNativeControl required formControlName="cardType">
+          <option value="Visa">Visa</option>
+          <option value="Maestro">Maestro</option>
+          <option value="MasterCard">MasterCard</option>
+        </select>
+      </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+            <mat-label>Card Number</mat-label>
+            <input matInput placeholder="XXXX-XXXX-XXXX-XXXX" formControlName="cardNumber"
+            required minlength="16" maxlength="16" (keypress)="numberOnly($event)">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+            <mat-label>Cardholder name (as seen on card)</mat-label>
+            <input matInput placeholder="Mr John Smith" formControlName="cardHolderName">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+            <mat-label>Card expiry date</mat-label>
+            <input matInput placeholder="mm/yy" formControlName="expiryDate">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+            <mat-label>CVV (found on the back of card)</mat-label>
+            <input matInput placeholder="XXX" formControlName="cvv" minlength="3"
+            maxlength="3" (keypress)="numberOnly($event)">
+        </mat-form-field>
+        
+        <button (click)="exit()" mat-raised-button color="secondary"> Cancel </button>
+        <div class="divider"></div>
+        <button (click)="submitCardInformation()" mat-raised-button color="primary" 
+        [disabled]="form.pristine || form.invalid"> Add </button>
+        <br><br>
+
+</mat-dialog-content>

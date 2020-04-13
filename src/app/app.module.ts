@@ -19,6 +19,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
@@ -35,6 +36,10 @@ import "@angular/compiler";
 import { UserService } from './user.service';
 import { ReportComponent } from './report/report.component';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import { SharesService } from './shares.service';
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { AddCardDialogComponent } from './add-card-dialog/add-card-dialog.component';
+import { CardsService } from './cards.service';
 
 
 
@@ -49,7 +54,9 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
     HomeComponent,
     ProfileComponent,
     ReportComponent,
-    LogoutDialogComponent
+    LogoutDialogComponent,
+    PaymentDetailsComponent,
+    AddCardDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +78,8 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
     MatPaginatorModule,
     MatExpansionModule,
     MatSidenavModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   exports: [
     MatFormFieldModule,
@@ -80,16 +88,19 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
     MatButtonModule,
     MatSortModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [
     AuthService, 
     StockService,
     SseServiceService,
     TradeService,
-    UserService
+    UserService,
+    SharesService,
+    CardsService
   ],
-  entryComponents: [LogoutDialogComponent],
+  entryComponents: [LogoutDialogComponent, AddCardDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

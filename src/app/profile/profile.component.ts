@@ -6,6 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from '../model/user.model';
 import { UserService } from '../user.service';
+import { Observable } from 'rxjs';
+import { Shares, Share } from '../model/share.model';
+import { SharesService } from '../shares.service';
 
 
 @Component({
@@ -15,15 +18,27 @@ import { UserService } from '../user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User;
+  displayedColumns: string[] = ['stockSymbol', 'total', 'value', 'volume', 'date'];
+  sharesDisplayedColumns: string[] = ['stockSymbol', 'volume'];
+  
+  user: Observable<User>;
+  dataSource: any;
+
   trades: Trade[];
-  displayedColumns: string[] = ['stockSymbol', 'total', 'value', 'volume', 'date']
-  dataSource: any
+
+  shares: Observable<Shares>;
+  sharesArray: Share[] = [];
+  sharesDataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private tradeService: TradeService, private userService: UserService) { }
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('tradesSort', { static: true }) tradesSort: MatSort;
+  @ViewChild('sharesSort', { static: true }) sharesSort: MatSort;
+
+  constructor(private tradeService: TradeService, 
+    private userService: UserService,
+    private sharesService: SharesService) { }
 
   ngOnInit(): void {
     //this.trades = this.tradeService.getUserStocks(localStorage.getItem('username'));
@@ -32,14 +47,20 @@ export class ProfileComponent implements OnInit {
       .subscribe((data) => {
         this.trades = data;
         this.dataSource = new MatTableDataSource(this.trades);
-        this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.tradesSort;
         this.dataSource.paginator = this.paginator;
       })
 
-    this.userService.getUserDetails(localStorage.getItem('username')).subscribe((user) => {
-      this.user = user;
-    });
+    this.user = this.userService.getUserDetails(localStorage.getItem('username'));
+    
+    this.sharesService.getUserShares(localStorage.getItem('username'))
+      .subscribe((shares) => {
+        let userSharesResponse: Shares = shares;
+        for (let share in userSharesResponse.shares) {
+          this.sharesArray.push(new Share(share, userSharesResponse.shares[share]));
+        }
+      });
+      this.sharesDataSource = new MatTableDataSource(this.sharesArray);
+      this.sharesDataSource.sort = this.sharesSort;
   };
-
-
 }

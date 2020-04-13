@@ -1,5 +1,6 @@
 <br>
-<div class="information-drop-down">
+
+<div class="information-drop-down" *ngIf="user | async as it">
 <h1 style="text-align: center; color: rgb(134, 49, 190);">Your Profile</h1>
     <mat-expansion-panel>
 
@@ -7,7 +8,7 @@
         <mat-panel-title>
             Information
         </mat-panel-title>
-        <mat-panel-description style="padding-left: 10%;">
+        <mat-panel-description style="padding-left: 8%;">
             See and change your details
         </mat-panel-description>
     </mat-expansion-panel-header>
@@ -16,36 +17,65 @@
         <!-- content -->
         <mat-list>
 
-
         </mat-list>
         <mat-divider></mat-divider>
-            <mat-list-item><font color="purple"> Name:</font> {{ user.name }}</mat-list-item>
+            <mat-list-item><font color="purple"> Name:</font> {{ it.name }}</mat-list-item>
         <mat-divider></mat-divider>
             <mat-list-item>
-                <font color="purple">Username:</font> {{ user.username }}
+                <font color="purple">Username:</font> {{ it.username }}
             </mat-list-item>
         <mat-divider></mat-divider>
             <mat-list-item>
-                <font color="purple">Email:</font> {{ user.email }}
+                <font color="purple">Email:</font> {{ it.email }}
             </mat-list-item>
         <mat-divider></mat-divider>
             <mat-list-item>
-                <font color="purple">Current Balance:</font> {{ user.balance }}
+                <font color="purple">Current Balance:</font> {{ it.balance }}
             </mat-list-item>
         <mat-divider></mat-divider>
             <mat-list-item>
-                <font color="purple">Active:</font> {{ user.enabled }}
+                <font color="purple">Active:</font> {{ it.enabled }}
             </mat-list-item>
         <mat-divider></mat-divider>
             <mat-list-item>
-                <font color="purple">Creation date:</font> {{ user.timeStamp }}
+                <font color="purple">Creation date:</font> {{ it.timeStamp }}
             </mat-list-item>
         <mat-divider></mat-divider>
             <mat-list-item>
             <button mat-button color="primary">Edit information</button>
+            <button mat-button color="primary" [routerLink]="['/payment-details']" routerLinkActive="router-link-active" >Payment Details</button>
             </mat-list-item>
     </mat-expansion-panel>
 </div>
+
+<br><br>
+
+<mat-card style="padding-left: 10px; padding-right: 10px;">
+    <h2 style="text-align: center; color: rgb(134, 49, 190);">Owned shares</h2>
+
+    <div class="shares-table">
+        <table mat-table [dataSource]="sharesDataSource" matSort #sharesSort="matSort" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="stockSymbol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{ element.symbol }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="volume">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Share Volume </th>
+                <td mat-cell *matCellDef="let element"> {{ element.volume }}</td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="sharesDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: sharesDisplayedColumns;"></tr>
+
+        </table>
+
+        <br>
+
+    </div>
+</mat-card>
 
 <br><br>
 <!-- <div *ngIf="trades | async ; else loading"></div>
@@ -58,7 +88,7 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
     <div class="trade-table">
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort #tradesSort="matSort" class="mat-elevation-z8">
 
             <ng-container matColumnDef="stockSymbol">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Symbol </th>
@@ -95,5 +125,7 @@
     </div>
 </mat-card>
 
+
+{{ shares | async }}
 
 <ng-template #loading>Loading stuff...</ng-template>
