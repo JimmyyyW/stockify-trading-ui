@@ -4,13 +4,14 @@
       <mat-form-field>
         <mat-label>Card Type</mat-label>
         <select matNativeControl required formControlName="cardType">
-          <option value="Visa">Visa</option>
-          <option value="Maestro">Maestro</option>
-          <option value="MasterCard">MasterCard</option>
+          <option value="VISA">Visa</option>
+          <option value="MAESTRO">Maestro</option>
+          <option value="MASTERCARD">MasterCard</option>
         </select>
       </mat-form-field>
 
         <mat-form-field style="width: 100%;">
+
             <mat-label>Card Number</mat-label>
             <input matInput placeholder="XXXX-XXXX-XXXX-XXXX" formControlName="cardNumber"
             required minlength="16" maxlength="16" (keypress)="numberOnly($event)">
@@ -18,12 +19,39 @@
 
         <mat-form-field style="width: 100%;">
             <mat-label>Cardholder name (as seen on card)</mat-label>
-            <input matInput placeholder="Mr John Smith" formControlName="cardHolderName">
+            <input matInput pattern="[A-Za-z ]*" placeholder="Mr John Smith" formControlName="cardHolderName">
         </mat-form-field>
 
-        <mat-form-field style="width: 100%;">
+        <mat-form-field>
             <mat-label>Card expiry date</mat-label>
-            <input matInput placeholder="mm/yy" formControlName="expiryDate">
+            <select matNativeControl required formControlName="expiryDateM">
+                <option value=''>Month</option>
+                <option value='01'>01</option>
+                <option value='02'>02</option>
+                <option value='03'>03</option>
+                <option value='04'>04</option>
+                <option value='05'>05</option>
+                <option value='06'>06</option>
+                <option value='07'>07</option>
+                <option value='08'>08</option>
+                <option value='09'>09</option>
+                <option value='10'>10</option>
+                <option value='11'>11</option>
+                <option value='12'>12</option>
+            </select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <select matNativeControl required formControlName="expiryDateY">
+                <option value=''>Year</option>
+                <option value='20'>20</option>
+                <option value='21'>21</option>
+                <option value='22'>22</option>
+                <option value='23'>23</option>
+                <option value='24'>24</option>
+                <option value='25'>25</option>
+                <option value='25'>26</option>
+            </select>
         </mat-form-field>
 
         <mat-form-field style="width: 100%;">
@@ -32,7 +60,7 @@
             maxlength="3" (keypress)="numberOnly($event)">
         </mat-form-field>
         
-        <button (click)="exit()" mat-raised-button color="secondary"> Cancel </button>
+        <button (click)="onCancelClick()" mat-raised-button color="secondary"> Cancel </button>
         <div class="divider"></div>
         <button (click)="submitCardInformation()" mat-raised-button color="primary" 
         [disabled]="form.pristine || form.invalid"> Add </button>

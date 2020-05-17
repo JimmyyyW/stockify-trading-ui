@@ -20,6 +20,6 @@ export class SharesService {
   constructor(private http: HttpClient) { }
 
   getUserShares(username: string) {
-    return this.http.get<Shares>(`${this.uri}/api/v2/users/shares/all/Jammm2essss`, this.option);
+    return this.http.get<Shares>(`${this.uri}/api/v2/users/shares/all/${username}`, this.option);
   }
 }

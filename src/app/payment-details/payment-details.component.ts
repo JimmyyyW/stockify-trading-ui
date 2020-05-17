@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddCardDialogComponent } from '../add-card-dialog/add-card-dialog.component';
+import { AddCardDialogComponent, CardDetails } from '../add-card-dialog/add-card-dialog.component';
+import { Observable } from 'rxjs';
+import { CardsService } from '../cards.service';
 
 @Component({
   selector: 'app-payment-details',
@@ -14,11 +16,14 @@ export class PaymentDetailsComponent implements OnInit {
   expiryDate: string;
   cvv: number;
 
-  constructor(public dialog: MatDialog) { }
+  cards: Observable<CardDetails[]>;
+
+  constructor(public dialog: MatDialog,
+    private cardsService: CardsService) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCardDialogComponent, {
-      width: '100%',
+      width: '80%',
       data: { 
         cardNumber: this.cardNumber, 
         cardHolderName: this.cardHolderName,
@@ -32,6 +37,23 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cards = this.cardsService.getUserCards(localStorage.getItem('username'));
+  }
+
+  removeCard(cardNumber) {
+    this.cardsService.removeCard(cardNumber)
+      .subscribe((data) => {
+        if (data == 1) {
+          //todo: change to green success banner
+          console.log('could');
+          location.reload();
+        }
+        else if (data == 0) {
+          //change to red failure banner
+          console.log('couldnt');
+        }
+        else console.log('else');
+      });
   }
 
 }

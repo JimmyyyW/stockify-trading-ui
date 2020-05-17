@@ -25,7 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { StockListComponent } from './stock-list/stock-list.component';
 import { StockService } from './stock.service';
-import { SseServiceService } from './sse-service.service';
+import { SseService } from './sse.service';
 import { StockDetailComponent } from './stock-detail/stock-detail.component';
 import { BuyShareComponent } from './buy-share/buy-share.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -40,6 +40,7 @@ import { SharesService } from './shares.service';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 import { AddCardDialogComponent } from './add-card-dialog/add-card-dialog.component';
 import { CardsService } from './cards.service';
+import { BuyShareDialogComponent } from './buy-share-dialog/buy-share-dialog.component';
 
 
 
@@ -56,7 +57,8 @@ import { CardsService } from './cards.service';
     ReportComponent,
     LogoutDialogComponent,
     PaymentDetailsComponent,
-    AddCardDialogComponent
+    AddCardDialogComponent,
+    BuyShareDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,13 +96,13 @@ import { CardsService } from './cards.service';
   providers: [
     AuthService, 
     StockService,
-    SseServiceService,
+    SseService,
     TradeService,
     UserService,
     SharesService,
     CardsService
   ],
-  entryComponents: [LogoutDialogComponent, AddCardDialogComponent],
+  entryComponents: [LogoutDialogComponent, AddCardDialogComponent, BuyShareDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

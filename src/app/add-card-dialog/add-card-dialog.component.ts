@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../logout-dialog/logout-dialog.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CardsService } from '../cards.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-card-dialog',
@@ -26,7 +27,8 @@ export class AddCardDialogComponent implements OnInit {
         cardType: ['', Validators.required],
         cardNumber: ['', Validators.required],
         cardHolderName: ['', Validators.required],
-        expiryDate: ['', Validators.required],
+        expiryDateM: ['', Validators.required],
+        expiryDateY: ['', Validators.required],
         cvv: ['', Validators.required]
     });
   }
@@ -34,17 +36,30 @@ export class AddCardDialogComponent implements OnInit {
   exit() {}
 
   onNoClick(): void {
-
+      this.dialogRef.close();
   }
 
-  submitCardInformation() {
+  submitCardInformation(): void {
     this.cardService.saveNewCard(
       this.form.get('cardType').value,
       this.form.get('cardNumber').value,
       this.form.get('cardHolderName').value,
-      this.form.get('expiryDate').value,
+      this.form.get('expiryDateM').value,
+      this.form.get('expiryDateY').value,
       this.form.get('cvv').value)
-        .subscribe(data => console.log(data));
+        .subscribe((data: any) => {
+          if (data instanceof HttpErrorResponse) {
+            console.log('unable to add card');
+          }
+          else { 
+            this.dialogRef.close(); 
+            location.reload();
+          }
+        });
+  }
+
+  onCancelClick() {
+    this.dialogRef.close();
   }
 
   numberOnly(event): boolean {
@@ -61,6 +76,7 @@ export interface CardDetails {
   cardType: string,
   cardNumber: number,
   cardHolderName: string,
-  expiryDate: string,
+  expiryDateM: string,
+  expiryDateY: string,
   cvv: number,
 }

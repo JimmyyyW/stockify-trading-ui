@@ -1,3 +1,41 @@
-<p>payment-details works!</p>
 
-<button mat-raised-button color="primary" (click)="openDialog()">Add a card</button>
+
+<mat-card>
+    <div *ngFor="let card of cards | async">
+    <mat-list>
+            <br>
+            <mat-list-item>
+                <mat-divider></mat-divider>
+                <div class="divider"></div>
+                <!-- {{card.cardType}} -->
+                
+                <img *ngIf="card.cardType=='VISA'" style="width: 5%; height: 80%;" src="../../assets/Visa.png">
+                
+                <img *ngIf="card.cardType=='MAESTRO'" style="width: 5%; height: 80%;" src="../../assets/Maestro.png">
+                
+                <img *ngIf="card.cardType=='MASTERCARD'" style="width: 5%; height: 80%;" src="../../assets/MasterCard.png">
+             
+                <mat-divider></mat-divider>
+                <div class="divider"></div>
+                {{card.cardHolderName}}
+                <mat-divider></mat-divider>
+                <div class="divider"></div>
+                {{card.cardNumber}}
+                <mat-divider></mat-divider>
+                <div class="divider"></div>
+                {{card.expiryDate}}
+                <button mat-raised-button color="secondary" (click)="removeCard(card.cardNumber)"
+                style="color: white; position: absolute; right: -5px; top: -1px" >Remove</button>
+                
+            </mat-list-item>
+                        
+            <br>
+        
+    </mat-list>
+    </div>
+</mat-card>
+<br>
+<div style="text-align: center;">
+  <button style="width: 20%;" mat-raised-button color="primary" (click)="openDialog()">Add a card</button>
+</div>
+<ng-template #loading>Loading stuff...</ng-template>

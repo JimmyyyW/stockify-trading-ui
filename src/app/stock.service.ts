@@ -1,8 +1,8 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Stock } from './model/stock.model';
-import { SseServiceService } from './sse-service.service';
+import { SseService } from './sse.service';
 
 
 @Injectable({
@@ -14,15 +14,16 @@ export class StockService {
 
   stocks: Observable<Stock>
 
-  constructor(private http: HttpClient, private sseService: SseServiceService, private zone: NgZone) { }
+  constructor(private http: HttpClient, private sseService: SseService, private zone: NgZone) { }
+
 
   getStocks(): Observable<Stock> {
       return this.http.get<Stock>(`${this.uri}/api/v2/stocks`);
   }
 
-  getStocksSSE(): Observable<Stock> {
+  getStocksSSE(): Observable<Stock[]> {
     return Observable.create(observer => {
-      const eventSource = this.sseService.getEventSource(`${this.uri}/api/v2/stocks`);
+      const eventSource = this.sseService.getStockListSource();
 
       eventSource.onmessage = event => {
         this.zone.run(() => {
@@ -41,7 +42,7 @@ export class StockService {
 
   getStockBySymbol(symbol: string): Observable<Stock> {
     return Observable.create(observer => {
-      const eventSource = this.sseService.getEventSource(`${this.uri}/api/v2/stocks/${symbol}`);
+      const eventSource = this.sseService.getStockSymbolSource(`${this.uri}/api/v2/stocks/${symbol}`);
 
       eventSource.onmessage = event => {
       this.zone.run(() => {

@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router }  from '@angular/router';
 import { Stock } from '../model/stock.model';
 import { StockService } from '../stock.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { TradeService } from '../trade.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BuyShareDialogComponent } from '../buy-share-dialog/buy-share-dialog.component';
 
 @Component({
   selector: 'app-stock-detail',
@@ -15,33 +18,48 @@ export class StockDetailComponent implements OnInit, OnDestroy {
   symbol: string;
   stock: Observable<Stock>;
   latestValue: Stock;
-  unsubscribe: Subject<void> = new Subject<void>();
+  volume: number;
+  subscription: Subscription;
+  latestTrade: Observable<string>;
 
-  constructor(private stockservice: StockService, private router: Router) { }
+  constructor(private stockservice: StockService, private router: Router,
+    private tradeService: TradeService, public dialog: MatDialog) 
+    { 
+      this.stock = this.stockservice.getStockBySymbol(this.getSymbol());
+    }
 
   ngOnInit(): void {
-    this.getSymbol();
-    this.stock = this.fetchDetails(this.symbol);
-    // this.stock.pipe(takeUntil(this.unsubscribe)).subscribe(value => {
-    //   this.latestValue = value
-    // });
+   
+    
   }
+  
 
   fetchDetails(symbol: string) {
     return this.stockservice.getStockBySymbol(symbol);
   }
 
-  getSymbol() {
-    this.symbol = this.router.url.split('/')[2];
+  getSymbol(): string {
+    return this.router.url.split('/')[2];
 
   }
 
+  @HostListener('unloaded')
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.stock = null;
-    //this.unsubscribe.next();
-    //this.unsubscribe.complete();
+      console.log('items destroyed');
+  }
+
+  openDialog(stockSymbol: string, currentSharePrice: number): void {
+    console.log(stockSymbol);
+    console.log(currentSharePrice);
+    const dialogRef = this.dialog.open(BuyShareDialogComponent, {
+      width: '400px',
+      data: { stockSymbol: stockSymbol, currentSharePrice: currentSharePrice }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+    })
   }
 
 }
