@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TradeService } from '../trade.service';
-import { StockService } from '../stock.service';
-import { Stock } from '../model/stock.model';
+import { TradeService } from '../../service/trade.service';
+import { StockService } from '../../service/stock.service';
+import { Stock } from '../../model/stock.model';
 import { Observable } from 'rxjs';
 
 @Component({

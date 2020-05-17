@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from '../../logout-dialog/logout-dialog.component';
+import { DialogData } from '../logout-dialog/logout-dialog.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CardsService } from '../../service/cards.service';
 import { HttpErrorResponse } from '@angular/common/http';

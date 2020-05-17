@@ -1,11 +1,11 @@
 import { Component, OnInit, NgModule, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { StockService } from '../stock.service';
+import { StockService } from '../../service/stock.service';
 import { Observable } from 'rxjs';
-import { Stock } from '../model/stock.model';
+import { Stock } from '../../model/stock.model';
 import { MatDialog } from '@angular/material/dialog';
-import { BuyShareDialogComponent } from '../buy-share-dialog/buy-share-dialog.component';
-import { TradeService } from '../trade.service';
+import { BuyShareDialogComponent } from '../../dialog/buy-share-dialog/buy-share-dialog.component';
+import { TradeService } from '../../service/trade.service';
 
 @Component({
   selector: 'app-stock-list',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CardDetails } from './add-card-dialog/add-card-dialog.component';
+import { CardDetails } from '../dialog/add-card-dialog/add-card-dialog.component';
 import { Observable } from 'rxjs';
 
 @Injectable({

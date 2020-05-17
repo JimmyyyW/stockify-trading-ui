@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import { LogoutDialogComponent } from './dialog/logout-dialog/logout-dialog.component';
 
 @Component({
   selector: 'app-root',

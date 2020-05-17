@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TradeService } from '../trade.service';
+import { TradeService } from '../service/trade.service';
 import { Trade } from '../model/trade.model';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from '../model/user.model';
-import { UserService } from '../user.service';
+import { UserService } from '../service/user.service';
 import { Observable } from 'rxjs';
 import { Shares, Share } from '../model/share.model';
-import { SharesService } from '../shares.service';
+import { SharesService } from '../service/shares.service';
 
 
 @Component({

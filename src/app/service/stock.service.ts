@@ -1,7 +1,7 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Stock } from './model/stock.model';
+import { Stock } from '../model/stock.model';
 import { SseService } from './sse.service';
 
 

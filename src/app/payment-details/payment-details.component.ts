@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddCardDialogComponent, CardDetails } from '../add-card-dialog/add-card-dialog.component';
+import { AddCardDialogComponent, CardDetails } from '../dialog/add-card-dialog/add-card-dialog.component';
 import { Observable } from 'rxjs';
-import { CardsService } from '../cards.service';
+import { CardsService } from '../service/cards.service';
 
 @Component({
   selector: 'app-payment-details',

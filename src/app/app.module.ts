@@ -22,25 +22,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AuthService } from './auth.service';
-import { StockListComponent } from './stock-list/stock-list.component';
-import { StockService } from './stock.service';
-import { SseService } from './sse.service';
-import { StockDetailComponent } from './stock-detail/stock-detail.component';
-import { BuyShareComponent } from './buy-share/buy-share.component';
+import { AuthService } from './service/auth.service';
+import { StockListComponent } from './stocks/stock-list/stock-list.component';
+import { StockService } from './service/stock.service';
+import { SseService } from './service/sse.service';
+import { BuyShareComponent } from './stocks/buy-share/buy-share.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TradeService } from './trade.service';
+import { TradeService } from './service/trade.service';
 import "@angular/compiler";
-import { UserService } from './user.service';
+import { UserService } from './service/user.service';
 import { ReportComponent } from './report/report.component';
-import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
-import { SharesService } from './shares.service';
+import { LogoutDialogComponent } from './dialog/logout-dialog/logout-dialog.component';
+import { SharesService } from './service/shares.service';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
-import { AddCardDialogComponent } from './add-card-dialog/add-card-dialog.component';
-import { CardsService } from './cards.service';
-import { BuyShareDialogComponent } from './buy-share-dialog/buy-share-dialog.component';
+import { AddCardDialogComponent } from './dialog/add-card-dialog/add-card-dialog.component';
+import { CardsService } from './service/cards.service';
+import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dialog.component';
 
 
 
@@ -49,7 +48,6 @@ import { BuyShareDialogComponent } from './buy-share-dialog/buy-share-dialog.com
     AppComponent,
     LoginComponent,
     StockListComponent,
-    StockDetailComponent,
     BuyShareComponent,
     SignUpComponent,
     HomeComponent,
