@@ -33,8 +33,6 @@ export class AddCardDialogComponent implements OnInit {
     });
   }
 
-  exit() {}
-
   onNoClick(): void {
       this.dialogRef.close();
   }

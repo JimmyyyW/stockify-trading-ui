@@ -1,3 +1,16 @@
 .mat-dialog-content {
     width: 100%;
 }
+
+.divider {
+    width: 5%;
+    display: inline-block;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #ec5a4f; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    
+}

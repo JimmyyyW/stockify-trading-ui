@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuyShareComponent } from './buy-share.component';
+import { SellShareDialogComponent } from './sell-share-dialog.component';
 
-describe('BuyShareComponent', () => {
-  let component: BuyShareComponent;
-  let fixture: ComponentFixture<BuyShareComponent>;
+describe('SellShareDialogComponent', () => {
+  let component: SellShareDialogComponent;
+  let fixture: ComponentFixture<SellShareDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BuyShareComponent ]
+      declarations: [ SellShareDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BuyShareComponent);
+    fixture = TestBed.createComponent(SellShareDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

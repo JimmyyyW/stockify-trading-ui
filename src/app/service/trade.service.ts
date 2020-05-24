@@ -9,7 +9,13 @@ import { Trade } from '../model/trade.model';
 })
 export class TradeService {
   
-  baseUri: string = 'http://localhost:8081'
+  baseUri: string = 'http://localhost:8081';
+  option = {
+    headers: new HttpHeaders()
+      .append('Content-Type', 'text/plain'),
+    secure: false
+  }
+
   
   constructor(private router: Router,
     private http: HttpClient) { }
@@ -20,5 +26,17 @@ export class TradeService {
 
     getLatestTrade(): Observable<any> {
       return this.http.get<any>(`${this.baseUri}/api/v2/trades/latest`);
+    }
+
+    createNewTrade(symbol: string, currentPrice: number, volume: number): Observable<any> {
+      let body = {
+        username: localStorage.getItem('username'),
+        stockSymbol: symbol,
+        currentSharePrice: currentPrice,
+        localDateTime: new Date().toLocaleString(),
+        volume: volume,
+        total: volume * currentPrice
+      }
+      return this.http.post<any>(`${this.baseUri}/api/v2/trade/create`, body, this.option);
     }
 }

@@ -30,7 +30,8 @@ export class ProfileComponent implements OnInit {
   sharesArray: Share[] = [];
   sharesDataSource: any;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('sharesPaginator', { static: true }) sharesPaginator: MatPaginator;
+  @ViewChild('tradesPaginator', { static: true }) paginator: MatPaginator;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('tradesSort', { static: true }) tradesSort: MatSort;
@@ -56,11 +57,24 @@ export class ProfileComponent implements OnInit {
     this.sharesService.getUserShares(localStorage.getItem('username'))
       .subscribe((shares) => {
         let userSharesResponse: Shares = shares;
+        console.log(userSharesResponse);
+        
         for (let share in userSharesResponse.shares) {
           this.sharesArray.push(new Share(share, userSharesResponse.shares[share]));
         }
+        this.sharesDataSource = new MatTableDataSource(this.sharesArray);
+        this.sharesDataSource.sort = this.sharesSort;
+        this.sharesDataSource.paginator = this.sharesPaginator;
       });
-      this.sharesDataSource = new MatTableDataSource(this.sharesArray);
-      this.sharesDataSource.sort = this.sharesSort;
   };
+
+  applyFilterShares(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.sharesDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

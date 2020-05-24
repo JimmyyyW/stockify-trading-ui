@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
         user => {
           console.log(user)
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/stocks');
         },
         error => {
           console.log(error);
@@ -64,5 +64,4 @@ export class LoginComponent implements OnInit, OnDestroy {
   redirectToSignUp() {
     this.router.navigateByUrl('/signup')
   }
-
 }

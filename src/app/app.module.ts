@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -26,7 +27,6 @@ import { AuthService } from './service/auth.service';
 import { StockListComponent } from './stocks/stock-list/stock-list.component';
 import { StockService } from './service/stock.service';
 import { SseService } from './service/sse.service';
-import { BuyShareComponent } from './stocks/buy-share/buy-share.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -40,6 +40,7 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
 import { AddCardDialogComponent } from './dialog/add-card-dialog/add-card-dialog.component';
 import { CardsService } from './service/cards.service';
 import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dialog.component';
+import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-dialog.component';
 
 
 
@@ -48,7 +49,6 @@ import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dia
     AppComponent,
     LoginComponent,
     StockListComponent,
-    BuyShareComponent,
     SignUpComponent,
     HomeComponent,
     ProfileComponent,
@@ -56,7 +56,8 @@ import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dia
     LogoutDialogComponent,
     PaymentDetailsComponent,
     AddCardDialogComponent,
-    BuyShareDialogComponent
+    BuyShareDialogComponent,
+    SellShareDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +80,8 @@ import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dia
     MatExpansionModule,
     MatSidenavModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatFormFieldModule,
@@ -100,7 +102,12 @@ import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dia
     SharesService,
     CardsService
   ],
-  entryComponents: [LogoutDialogComponent, AddCardDialogComponent, BuyShareDialogComponent],
+  entryComponents: [
+    LogoutDialogComponent, 
+    AddCardDialogComponent, 
+    BuyShareDialogComponent,
+    SellShareDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

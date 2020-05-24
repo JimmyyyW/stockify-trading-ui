@@ -1,8 +1,9 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Stock } from '../model/stock.model';
 import { SseService } from './sse.service';
+import { Stock } from '../model/stock.model';
+
 
 
 @Injectable({
@@ -55,5 +56,9 @@ export class StockService {
         })
       }
     });
+  }
+
+  getCurrentSharePrice(stockSymbol: string): Observable<number> {
+    return this.http.get<number>(`${this.uri}/api/v2/stocks/value/${stockSymbol}`);
   }
 }
