@@ -38,4 +38,5 @@ export class CardsService {
   getUserCards(username: string): Observable<CardDetails[]> {
     return this.http.get<CardDetails[]>(`${this.uri}/api/v2/cards/user/${username}`);
   }
+
 }

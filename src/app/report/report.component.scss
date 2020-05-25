@@ -6,3 +6,16 @@ mat-card {
     padding-left: 5%;
     padding-right: 5%;
 }
+
+.mat-button {
+    display: inline-block;
+    position: relative;
+    left: 60%;
+    width: 20%;
+    height: 80%;
+    bottom: 20px;
+}
+
+button {
+    left: 90%;
+}

@@ -1,0 +1,13 @@
+<p style="color: indigo;">select stocks</p>
+
+<ul>
+<li *ngFor="let symbol of symbols;">
+    <input type="checkbox"
+      name="checkbox-list"
+      (click)=clicked(symbol)
+      value="{{symbol}}"
+    >
+    {{symbol}} 
+</li>
+</ul>
+<button mat-button (click)="submit()" style="left: 70%;">submit</button>

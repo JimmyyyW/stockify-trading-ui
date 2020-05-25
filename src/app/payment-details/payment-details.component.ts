@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCardDialogComponent, CardDetails } from '../dialog/add-card-dialog/add-card-dialog.component';
 import { Observable } from 'rxjs';
 import { CardsService } from '../service/cards.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-details',
@@ -19,6 +20,7 @@ export class PaymentDetailsComponent implements OnInit {
   cards: Observable<CardDetails[]>;
 
   constructor(public dialog: MatDialog,
+    private router: Router,
     private cardsService: CardsService) { }
 
   openDialog(): void {
@@ -32,7 +34,7 @@ export class PaymentDetailsComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+      this.cards = this.cardsService.getUserCards(localStorage.getItem('username'));
     })
   }
 
@@ -46,7 +48,7 @@ export class PaymentDetailsComponent implements OnInit {
         if (data == 1) {
           //todo: change to green success banner
           console.log('could');
-          location.reload();
+          this.cards = this.cardsService.getUserCards(localStorage.getItem('username'));
         }
         else if (data == 0) {
           //change to red failure banner

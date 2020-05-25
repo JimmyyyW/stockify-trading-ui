@@ -1,27 +1,44 @@
 <br>
-<h1 style="text-align: center;"><font color="purple">Reports</font></h1>
+<h1 style="text-align: center;">
+    <font color="purple">Reports</font>
+</h1>
 <div class="report-cards">
-    <br>
-    <div class="row">
+    <mat-radio-group [(ngModel)]="reportType">
+        <br>
+        <div class="row">
+            <mat-card>
+                <div style="display: inline-block;">
+                    <h3>
+                        <font color="purple">Your Shares</font>
+                    </h3>
+                    Get an A-Z ordered report based on the shares you currently hold 
+                </div>
+                <mat-radio-button class="mat-button" value="share"></mat-radio-button>
+            </mat-card>
+        </div>
+        <br><br>
         <mat-card>
-            <h3>
-                <font color="purple">Your Shares</font>
-            </h3>
-            Get a report based on the shares you currently hold
+            <div style="display: inline-block;">
+                <h3>
+                    <font color="purple">Choose Stocks</font>
+                </h3>
+                Generate report for chosen stocks, you will be prompted to select
+            </div>
+            <mat-radio-button class="mat-button" value="select"></mat-radio-button>
         </mat-card>
-    </div>
-    <br><br>
-    <mat-card>
-        <h3>
-            <font color="purple">Single Stock</font>
-        </h3>
-        Generate report for a single stock
-    </mat-card>
-    <br><br>
-    <mat-card>
-        <h3>
-            <font color="purple">Share Value</font>
-        </h3>
-        Generate a report based on the current share values
-    </mat-card>
+
+        <br><br>
+        <mat-card>
+            <div style="display: inline-block;">
+                <h3>
+                    <font color="purple">Share Value</font>
+                </h3>
+                Generate a report based on the current share values for all stocks
+            </div>
+            <mat-radio-button class="mat-button" style="right: 20%;" value="all"></mat-radio-button>
+        </mat-card>
+    </mat-radio-group>
+    <br>
+    <button mat-raised-button (click)="dlBtnClick(reportType)" [disabled]="!reportType">Download</button>
+
 </div>

@@ -29,9 +29,9 @@
         <button class="btn btn-primary" (click)="redirectToSignUp()" mat-raised-button color="primary">Register</button>
     </form>
     </mat-card>
-
+    
+    <div *ngIf="loginError" class="alert alert-danger">
+        <strong style="text-align: center;">incorrect cradentials</strong> 
+    </div>
 </div>
 <br>
-<div *ngIf="loginError" class="alert alert-danger">
-    <strong>Warning! incorrect cradentials</strong> 
-</div>

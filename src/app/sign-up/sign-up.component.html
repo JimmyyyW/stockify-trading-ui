@@ -9,6 +9,10 @@
             </mat-form-field>            
             <br>
             <mat-form-field class="form-group">
+                <input matInput placeholder="surname" class="form-control" formControlName="surname" #surname>
+            </mat-form-field>        
+            <br>
+            <mat-form-field class="form-group">
                 <input matInput placeholder="username" class="form-control" formControlName="username" #username>
             </mat-form-field>
             <br>
@@ -31,10 +35,18 @@
             </div> -->
         <mat-divider></mat-divider>
         <br><br>
+        <div>
         <button class="submit-button" type="button" (click)="submitSignUpForm()" 
-        [disabled]="signUpForm.pristine || signUpForm.invalid" mat-raised-button color="primary"
-        [routerLink]="['/login']" >Register</button>
+        [disabled]="signUpForm.pristine || signUpForm.invalid" mat-raised-button color="primary" 
+        >Register</button>
+        <div class="divider"></div>
+        <button mat-raised-button color="secondary"
+        [routerLink]="['/login']" >Return</button>
+        </div>
         </form>
     </mat-card>
+    <div *ngIf="accountExist" class="alert alert-danger">
+        <strong>Username or email address are in use</strong> 
+    </div>
 </div>
 

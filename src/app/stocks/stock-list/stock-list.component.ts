@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { StockService } from '../../service/stock.service';
-import { Observable } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { Stock } from '../../model/stock.model';
 import { MatDialog } from '@angular/material/dialog';
 import { BuyShareDialogComponent } from '../../dialog/buy-share-dialog/buy-share-dialog.component';
@@ -11,6 +11,9 @@ import { map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { SharesService } from 'src/app/service/shares.service';
+import { SellShareDialogComponent } from 'src/app/dialog/sell-share-dialog/sell-share-dialog.component';
+import { CardsService } from 'src/app/service/cards.service';
 
 @Component({
   selector: 'app-stock-list',
@@ -23,7 +26,6 @@ export class StockListComponent implements OnInit, OnDestroy {
   displayedColumns: String[] = ['symbol', 'name', 'value', 'gains', 'volume', 'latest trade', 'buy'];
   volume: number;
   stock: string;
-  latestTrades: any;
   stockList: any;
   dataSource: any
 
@@ -33,53 +35,66 @@ export class StockListComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private stockService: StockService,
-    private tradeService: TradeService,
-    private userService: UserService
+    private sharesService: SharesService,
+    private userService: UserService,
+    private cardsService: CardsService
   ) {
     this.stocks = this.stockService.getStocksSSE();
   }
 
   ngOnInit(): void {
-    this.tradeService.getLatestTrade()
-      .subscribe(data => this.latestTrades = data);
     this.stocks.subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    })  
+    })
   }
 
-  ngOnDestroy(): void {
-    console.log('destroyed');
-    
-  }
-
-  latestTradesForSymbol(symbol: string): string {
-    return this.latestTrades[symbol];
-  }
+  ngOnDestroy(): void { }
 
   openBuyDialog(stockSymbol: string, currentSharePrice: number): void {
-    const dialogRef = this.dialog.open(BuyShareDialogComponent, {
-      width: '400px',
-      data: { stockSymbol: stockSymbol, currentSharePrice: currentSharePrice, userBalance: this.getUserBalance() }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-    })
+    this.cardsService.getUserCards(localStorage.getItem('username'))
+      .subscribe(data => {
+        if (data.length < 1 || data == undefined) {
+          alert('Add at least one card before trading')
+        } else {
+          const dialogRef = this.dialog.open(BuyShareDialogComponent, {
+            width: '400px',
+            data: { stockSymbol: stockSymbol, currentSharePrice: currentSharePrice, userBalance: this.getUserBalance() }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(result)
+          })
+        }
+      });
   }
 
   openSellDialog(stockSymbol: string, currentSharePrice: number): void {
-    const dialogRef = this.dialog.open(BuyShareDialogComponent, {
-      width: '400px',
-      data: { stockSymbol: stockSymbol, currentSharePrice: currentSharePrice, userBalance: this.getUserBalance() }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+    let amountHeld;
+    this.getUserShares(stockSymbol).subscribe(data => {
+      if (data == undefined) {
+        amountHeld = of(new Number(0));
+      } else {
+        amountHeld = of(data);
+      }
+      const dialogRef = this.dialog.open(SellShareDialogComponent, {
+        width: '400px',
+        data: { stockSymbol: stockSymbol, currentSharePrice: currentSharePrice, amountHeld: amountHeld }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result)
+      })
     })
+
   }
 
   getUserBalance(): Observable<number> {
     return this.userService.getUserDetails(localStorage.getItem('username')).pipe(map(user => user.balance));
+  }
+
+  getUserShares(stockSymbol: string): Observable<number> {
+    const user = localStorage.getItem('username');
+    return this.sharesService.getSingleUserShares(user, stockSymbol);
   }
 
   applyFilter(event: Event) {

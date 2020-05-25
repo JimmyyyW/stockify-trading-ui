@@ -22,9 +22,8 @@ export class BuyShareDialogComponent implements OnInit {
   sharesUpdateOutcome: string;
   isLoading: boolean;
   invalidSharePrice: boolean;
+  successfullSubmission: boolean;
   mode: ProgressSpinnerMode = 'indeterminate';
-  
-
 
   constructor(
     public dialogRef: MatDialogRef<BuyShareDialogComponent>,
@@ -33,9 +32,7 @@ export class BuyShareDialogComponent implements OnInit {
     private tradeService: TradeService,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -51,37 +48,38 @@ export class BuyShareDialogComponent implements OnInit {
     return true;
   }
 
-  submitTradeRequest(stockSymbol: string, currentSharePrice: number) {
+  async submitTradeRequest(stockSymbol: string, currentSharePrice: number) {
+    this.successfullSubmission = false;
     const volume = this.form.get('volume').value;
-    const checkedPrice = Promise.resolve(this.isSharePriceEqual(currentSharePrice, stockSymbol));
-    checkedPrice.then(bool => {
-      if (!bool) {
-        this.invalidSharePrice = true;
-      } else {
-        this.isLoading = true;
-        setTimeout(() => {
-          this.tradeService.createNewTrade(stockSymbol, currentSharePrice, volume)
-            .subscribe(data => {
-              if (data.outcome == 'success') {
-                console.log('it was success');
-                const transactionAmount: number = currentSharePrice * volume;
-                this.userService.updateUserBalance(-transactionAmount)
-                  .subscribe(data => console.log(data));
-                this.userService.updateHeldShares(stockSymbol, volume, currentSharePrice, 'BUY')
-                  .subscribe(data => console.log(data));
-  
-                this.isLoading = false;
-              }
-            });
-        }, 1000)
-      }
-    })
+    const checkedPrice = await this.isSharePriceEqual(currentSharePrice, stockSymbol);
+    if (!checkedPrice) {
+      this.invalidSharePrice = true;
+    } else {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.tradeService.createNewTrade(stockSymbol, currentSharePrice, volume)
+          .subscribe(data => {
+            if (data.outcome == 'success') {
+              console.log('it was success');
+              const transactionAmount: number = currentSharePrice * volume;
+              this.userService.updateUserBalance(-transactionAmount)
+                .subscribe(data => console.log(data));
+              this.userService.updateHeldShares(stockSymbol, volume, currentSharePrice, 'BUY')
+                .subscribe(data => console.log(data));
+              this.stockService.updateLatestTrade(stockSymbol)
+                .subscribe(data => console.log(data));
+              this.isLoading = false;
+              this.successfullSubmission = true;
+            }
+          });
+      }, 1000)
+    }
   }
 
   async isSharePriceEqual(sharePriceToCheck: number, stockSymbol: string): Promise<boolean> {
     let currentPrice = await this.stockService.getCurrentSharePrice(stockSymbol).toPromise();
     console.log(currentPrice);
-    
+
     if (currentPrice != sharePriceToCheck)
       return false;
     else return true;
@@ -100,19 +98,11 @@ export class BuyShareDialogComponent implements OnInit {
     if (total >= balance) return true;
     else return false;
   }
-
 }
+
 
 export interface DialogData {
   currentSharePrice: number,
   stockSymbol: string,
   userBalance: Observable<number>
-}
-
-export interface TradeRequest {
-  username: string,
-  stockSymbol: string,
-  currentSharePrice: number,
-  volume: number,
-  total: number
 }

@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
 
-  submitLoginForm() {
-    this.authService.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
+  async submitLoginForm() {
+    let promise = this.authService.login(this.loginForm.get('username').value, this.loginForm.get('password').value);
+    promise.then((value) => value
       .pipe(first())
       .subscribe(
         user => {
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           console.log(error);
           this.loginError = true;
         }
-      )
+      ))
   }
 
   redirectToSignUp() {

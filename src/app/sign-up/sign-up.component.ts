@@ -23,6 +23,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
       name: ['', Validators.required],
+      surname: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
       email: ['', Validators.required]
@@ -31,13 +32,22 @@ export class SignUpComponent implements OnInit {
 
   submitSignUpForm() {
     this.authService.register(this.signUpForm.get('name').value,
+    this.signUpForm.get('surname').value,
     this.signUpForm.get('username').value, 
     this.signUpForm.get('password').value, 
     this.signUpForm.get('email').value)
     .pipe(first())
     .subscribe(
-      user => {
-        console.log(user)
+      response => {
+        console.log(response);
+        if (response.outcome == 'success') {
+          alert('check your emails for the activation link');
+          this.router.navigateByUrl('/login')
+        } else if (response.outcome == 'failure') {
+          this.accountExist = true;
+        } else {
+          console.log(response);         
+        }
       },
       error => {
         console.log(error);

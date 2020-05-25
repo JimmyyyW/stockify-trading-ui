@@ -61,4 +61,11 @@ export class StockService {
   getCurrentSharePrice(stockSymbol: string): Observable<number> {
     return this.http.get<number>(`${this.uri}/api/v2/stocks/value/${stockSymbol}`);
   }
+
+  updateLatestTrade(stockSymbol: string): Observable<string> {
+    return this.http.put<string>(
+      `${this.uri}/api/v2/stocks/update/${stockSymbol}`, 
+      new Date().toLocaleString()
+    )
+  }
 }

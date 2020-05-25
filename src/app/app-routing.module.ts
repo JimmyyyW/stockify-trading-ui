@@ -13,11 +13,11 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'stocks', component: StockListComponent },
-  { path: 'reports', component: ReportComponent },
-  { path: 'payment-details', component: PaymentDetailsComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'stocks', component: StockListComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportComponent, canActivate: [AuthGuard] },
+  { path: 'payment-details', component: PaymentDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'home/:id', component: HomeComponent },
   {
     path: '',
     redirectTo: '/login',

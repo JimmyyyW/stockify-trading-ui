@@ -30,6 +30,9 @@
         
       </div>
       <br>
+      <div style="height: 20%;" *ngIf="successfullSubmission" class="alert alert-success">
+        <strong>Your trade has been submitted</strong> 
+      </div>
       <div style="height: 20%;" *ngIf="invalidSharePrice" class="alert alert-danger">
           <strong>Share price changed, please close window</strong> 
         </div>

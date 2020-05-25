@@ -56,15 +56,16 @@ export class ProfileComponent implements OnInit {
     
     this.sharesService.getUserShares(localStorage.getItem('username'))
       .subscribe((shares) => {
-        let userSharesResponse: Shares = shares;
-        console.log(userSharesResponse);
         
+        let userSharesResponse: Shares = shares;
+        if (userSharesResponse.shares) {
         for (let share in userSharesResponse.shares) {
           this.sharesArray.push(new Share(share, userSharesResponse.shares[share]));
         }
         this.sharesDataSource = new MatTableDataSource(this.sharesArray);
         this.sharesDataSource.sort = this.sharesSort;
         this.sharesDataSource.paginator = this.sharesPaginator;
+      }
       });
   };
 

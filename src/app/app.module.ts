@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio'
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from './service/auth.service';
 import { StockListComponent } from './stocks/stock-list/stock-list.component';
@@ -41,6 +42,8 @@ import { AddCardDialogComponent } from './dialog/add-card-dialog/add-card-dialog
 import { CardsService } from './service/cards.service';
 import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dialog.component';
 import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-dialog.component';
+import { ReportService } from './service/report.service';
+import { SymbolSelectDialogComponent } from './dialog/symbol-select-dialog/symbol-select-dialog.component';
 
 
 
@@ -57,7 +60,8 @@ import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-
     PaymentDetailsComponent,
     AddCardDialogComponent,
     BuyShareDialogComponent,
-    SellShareDialogComponent
+    SellShareDialogComponent,
+    SymbolSelectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +85,9 @@ import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-
     MatSidenavModule,
     MatDialogModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    FormsModule
   ],
   exports: [
     MatFormFieldModule,
@@ -91,7 +97,8 @@ import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-
     MatSortModule,
     MatExpansionModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [
     AuthService, 
@@ -100,13 +107,15 @@ import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-
     TradeService,
     UserService,
     SharesService,
-    CardsService
+    CardsService,
+    ReportService
   ],
   entryComponents: [
     LogoutDialogComponent, 
     AddCardDialogComponent, 
     BuyShareDialogComponent,
-    SellShareDialogComponent
+    SellShareDialogComponent,
+    SymbolSelectDialogComponent
   ],
   bootstrap: [AppComponent]
 })

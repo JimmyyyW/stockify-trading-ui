@@ -21,7 +21,7 @@ export class TradeService {
     private http: HttpClient) { }
     
     getUserStocks(currentUser: string): Observable<Trade[]> {
-      return this.http.get<Trade[]>(`${this.baseUri}/api/v2/trades/Jammm2essss`); //currentUser
+      return this.http.get<Trade[]>(`${this.baseUri}/api/v2/trades/${currentUser}`); //currentUser
     }
 
     getLatestTrade(): Observable<any> {
@@ -37,6 +37,8 @@ export class TradeService {
         volume: volume,
         total: volume * currentPrice
       }
+      console.log(body);
+      
       return this.http.post<any>(`${this.baseUri}/api/v2/trade/create`, body, this.option);
     }
 }

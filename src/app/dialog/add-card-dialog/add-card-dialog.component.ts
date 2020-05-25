@@ -4,6 +4,7 @@ import { DialogData } from '../logout-dialog/logout-dialog.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CardsService } from '../../service/cards.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-card-dialog',
@@ -19,6 +20,7 @@ export class AddCardDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddCardDialogComponent>,
     private cardService: CardsService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public cardDetails: CardDetails
   ) { }
 
@@ -51,7 +53,6 @@ export class AddCardDialogComponent implements OnInit {
           }
           else { 
             this.dialogRef.close(); 
-            location.reload();
           }
         });
   }
