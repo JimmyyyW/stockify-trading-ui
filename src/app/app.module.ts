@@ -44,6 +44,8 @@ import { BuyShareDialogComponent } from './dialog/buy-share-dialog/buy-share-dia
 import { SellShareDialogComponent } from './dialog/sell-share-dialog/sell-share-dialog.component';
 import { ReportService } from './service/report.service';
 import { SymbolSelectDialogComponent } from './dialog/symbol-select-dialog/symbol-select-dialog.component';
+import { AdminComponent } from './admin/admin.component';
+import { BrokerService } from './service/broker.service';
 
 
 
@@ -61,7 +63,8 @@ import { SymbolSelectDialogComponent } from './dialog/symbol-select-dialog/symbo
     AddCardDialogComponent,
     BuyShareDialogComponent,
     SellShareDialogComponent,
-    SymbolSelectDialogComponent
+    SymbolSelectDialogComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ import { SymbolSelectDialogComponent } from './dialog/symbol-select-dialog/symbo
     UserService,
     SharesService,
     CardsService,
-    ReportService
+    ReportService,
+    BrokerService
   ],
   entryComponents: [
     LogoutDialogComponent, 

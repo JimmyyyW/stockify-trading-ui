@@ -58,4 +58,10 @@ export class PaymentDetailsComponent implements OnInit {
       });
   }
 
+  obfuscate(cardNumber: number): string {
+    console.log(cardNumber);
+    
+    return cardNumber.toString().substring(12);
+  }
+
 }

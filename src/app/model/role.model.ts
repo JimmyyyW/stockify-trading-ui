@@ -1,4 +1,3 @@
-export interface Role {
-    _id: any,
-    role: string
-}
+export class Role {
+    role: string;
+} 

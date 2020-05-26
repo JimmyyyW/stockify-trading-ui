@@ -8,6 +8,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { ReportComponent } from './report/report.component';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'stocks', component: StockListComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportComponent, canActivate: [AuthGuard] },
   { path: 'payment-details', component: PaymentDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'home/:id', component: HomeComponent },
   {
     path: '',

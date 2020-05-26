@@ -20,7 +20,7 @@
                 {{card.cardHolderName}}
                 <mat-divider></mat-divider>
                 <div class="divider"></div>
-                {{card.cardNumber}}
+                **** **** **** {{obfuscate(card.cardNumber)}}
                 <mat-divider></mat-divider>
                 <div class="divider"></div>
                 {{card.expiryDate}}

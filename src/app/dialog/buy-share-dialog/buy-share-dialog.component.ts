@@ -4,9 +4,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TradeService } from '../../service/trade.service';
 import { StockService } from '../../service/stock.service';
 import { Stock } from '../../model/stock.model';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { UserService } from 'src/app/service/user.service';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { BrokerService } from 'src/app/service/broker.service';
 
 @Component({
   selector: 'app-buy-share-dialog',
@@ -31,6 +32,7 @@ export class BuyShareDialogComponent implements OnInit {
     private stockService: StockService,
     private tradeService: TradeService,
     private userService: UserService,
+    private brokerService: BrokerService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
 
@@ -60,19 +62,23 @@ export class BuyShareDialogComponent implements OnInit {
         this.tradeService.createNewTrade(stockSymbol, currentSharePrice, volume)
           .subscribe(data => {
             if (data.outcome == 'success') {
-              console.log('it was success');
               const transactionAmount: number = currentSharePrice * volume;
-              this.userService.updateUserBalance(-transactionAmount)
-                .subscribe(data => console.log(data));
-              this.userService.updateHeldShares(stockSymbol, volume, currentSharePrice, 'BUY')
-                .subscribe(data => console.log(data));
-              this.stockService.updateLatestTrade(stockSymbol)
-                .subscribe(data => console.log(data));
-              this.isLoading = false;
-              this.successfullSubmission = true;
+              forkJoin([
+              this.userService.updateUserBalance(-transactionAmount),
+              this.userService.updateHeldShares(stockSymbol, volume, currentSharePrice, 'BUY'),
+              this.stockService.updateLatestTrade(stockSymbol),
+            ]).subscribe(data => {
+              if (data[0].outcome == 'success' 
+              && data[1].outcome == 'success') {
+                this.isLoading = false;
+                this.successfullSubmission = true;
+              } else {
+                console.log('implement remove trade');
+              }
+            });
             }
           });
-      }, 1000)
+      }, this.brokerService.acceptTrade())
     }
   }
 
