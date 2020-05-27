@@ -5,23 +5,28 @@
         </section>
         <form [formGroup]="signUpForm" (ngSubmit)="submitSignUpForm()">
             <mat-form-field class="form-group">
-                <input matInput placeholder="name" class="form-control" formControlName="name" #name>
+                <input matInput placeholder="name" pattern="[A-Za-z ]*" 
+                class="form-control" formControlName="name" #name>
             </mat-form-field>            
             <br>
             <mat-form-field class="form-group">
-                <input matInput placeholder="surname" class="form-control" formControlName="surname" #surname>
+                <input matInput placeholder="surname" pattern="[A-Za-z ]*" 
+                class="form-control" formControlName="surname" #surname>
             </mat-form-field>        
             <br>
             <mat-form-field class="form-group">
-                <input matInput placeholder="username" class="form-control" formControlName="username" #username>
+                <input matInput placeholder="username" class="form-control"
+                 formControlName="username" #username>
             </mat-form-field>
             <br>
             <mat-form-field class="form-group">
-                <input matInput type="password" placeholder="password" class="form-control" formControlName="password" #password>
+                <input matInput type="password" placeholder="password" class="form-control"
+                 formControlName="password" #password>
             </mat-form-field>
             <br>
             <mat-form-field class="form-group">
-                <input matInput placeholder="email address" class="form-control" formControlName="email" #email>
+                <input matInput placeholder="email address" class="form-control"
+                 formControlName="email" #email>
             </mat-form-field>
 
 

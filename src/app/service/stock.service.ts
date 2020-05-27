@@ -68,4 +68,9 @@ export class StockService {
       new Date().toLocaleString()
     )
   }
+
+  createNewStock(symbol: string, name: string, volume: number, value: number) {
+    return this.http.post<any>(`${this.uri}/api/v2/stocks/new`, 
+    {symbol: symbol, name: name, volume: volume, value: value});
+  }
 }

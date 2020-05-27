@@ -46,6 +46,8 @@ import { ReportService } from './service/report.service';
 import { SymbolSelectDialogComponent } from './dialog/symbol-select-dialog/symbol-select-dialog.component';
 import { AdminComponent } from './admin/admin.component';
 import { BrokerService } from './service/broker.service';
+import { RemoveUserDialogComponent } from './dialog/remove-user-dialog/remove-user-dialog.component';
+import { EditUserDialogComponent } from './dialog/edit-user-dialog/edit-user-dialog.component';
 
 
 
@@ -64,7 +66,9 @@ import { BrokerService } from './service/broker.service';
     BuyShareDialogComponent,
     SellShareDialogComponent,
     SymbolSelectDialogComponent,
-    AdminComponent
+    AdminComponent,
+    RemoveUserDialogComponent,
+    EditUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +123,9 @@ import { BrokerService } from './service/broker.service';
     AddCardDialogComponent, 
     BuyShareDialogComponent,
     SellShareDialogComponent,
-    SymbolSelectDialogComponent
+    SymbolSelectDialogComponent,
+    RemoveUserDialogComponent,
+    EditUserDialogComponent
   ],
   bootstrap: [AppComponent]
 })

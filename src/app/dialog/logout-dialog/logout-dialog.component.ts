@@ -11,7 +11,9 @@ export class LogoutDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<LogoutDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) { }
+  ) {
+  
+   }
 
   ngOnInit(): void {
   }

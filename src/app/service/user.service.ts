@@ -25,7 +25,7 @@ export class UserService {
     secure: false,
     withCredentials: true
   }
-
+  
   sharesUpdateOption = {
     headers: new HttpHeaders()
     .append('Content-Type', 'text/plain'),
@@ -37,6 +37,10 @@ export class UserService {
   
   getUserDetails(currentUser: string): Observable<User> {
     return this.http.get<User>(`${this.baseUri}/api/v2/user/find/${currentUser}`, this.option);
+  }
+  
+  getAllUserDetails(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUri}/api/v2/user/all`, this.option);
   }
   
   
@@ -55,5 +59,15 @@ export class UserService {
     }
     return this.http.put<any>(`${this.baseUri}/api/v2/users/shares/update`, body, this.sharesUpdateOption);
   }
+  
+  removeUser(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUri}/api/v2/user/delete/${id}`, this.balanceUpdateOption);
+  }
 
+  updateUser(username: string, name: string, lastName: string, password: string, email: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUri}/api/v2/user/update`,
+      { username: username, name: name, surname: lastName, password: password, email: email },
+      this.balanceUpdateOption
+    );
+  }
 }

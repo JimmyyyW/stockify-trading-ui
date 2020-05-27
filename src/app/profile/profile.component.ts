@@ -9,6 +9,8 @@ import { UserService } from '../service/user.service';
 import { Observable } from 'rxjs';
 import { Shares, Share } from '../model/share.model';
 import { SharesService } from '../service/shares.service';
+import { EditUserDialogComponent } from '../dialog/edit-user-dialog/edit-user-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -39,7 +41,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private tradeService: TradeService, 
     private userService: UserService,
-    private sharesService: SharesService) { }
+    private sharesService: SharesService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     //this.trades = this.tradeService.getUserStocks(localStorage.getItem('username'));
@@ -68,6 +71,24 @@ export class ProfileComponent implements OnInit {
       }
       });
   };
+
+  openEditDialog(username: string, name: string, lastName: string, email: string): void {
+    console.log('hello')
+    const dialogRef = this.dialog.open(EditUserDialogComponent, {
+      width: '80%',
+      data: {
+        username: username,
+        name: name,
+        lastName: lastName,
+        password: '******',
+        email: email
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      alert('please log back in and check for activation email if you changed password')
+      window.location.reload()  
+    });
+  }
 
   applyFilterShares(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

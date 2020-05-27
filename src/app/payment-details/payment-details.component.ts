@@ -42,25 +42,26 @@ export class PaymentDetailsComponent implements OnInit {
     this.cards = this.cardsService.getUserCards(localStorage.getItem('username'));
   }
 
-  removeCard(cardNumber) {
-    this.cardsService.removeCard(cardNumber)
+  removeCard(id: string) {
+    console.log(id);
+    this.cardsService.removeCard(id)
       .subscribe((data) => {
         if (data == 1) {
           //todo: change to green success banner
-          console.log('could');
           this.cards = this.cardsService.getUserCards(localStorage.getItem('username'));
         }
         else if (data == 0) {
           //change to red failure banner
-          console.log('couldnt');
+          alert('failed to remove card');
         }
-        else console.log('else');
+        else {
+          alert('removed card!');
+          this.cards = this.cardsService.getUserCards(localStorage.getItem('username'));
+        }
       });
   }
 
-  obfuscate(cardNumber: number): string {
-    console.log(cardNumber);
-    
+  obfuscate(cardNumber: number): string {    
     return cardNumber.toString().substring(12);
   }
 

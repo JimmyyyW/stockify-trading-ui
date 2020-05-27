@@ -33,6 +33,10 @@ export class SymbolSelectDialogComponent implements OnInit {
     let final = (arr: string[]) => arr.filter((v, i) => arr.indexOf(v) === i);
     this.dialogRef.close({ data: final(this.chosen) });
   }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
  
 }
 

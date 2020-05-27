@@ -1,0 +1,29 @@
+<mat-dialog-content [formGroup]="form">
+
+    <mat-form-field style="width: 100%;">
+        <mat-label>Name</mat-label>
+        <input matInput pattern="[A-Za-z ]*" placeholder="John" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+        <mat-label>Last Name</mat-label>
+        <input matInput pattern="[A-Za-z ]*" placeholder="Doe" formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Mr John Smith" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="JohnDoe@live.com" formControlName="email">
+    </mat-form-field>
+
+    <button (click)="onCancelClick()" mat-raised-button color="secondary"> Cancel </button>
+        <div class="divider"></div>
+        <button (click)="submitUserInformation()" mat-raised-button color="primary" 
+        [disabled]="form.pristine || form.invalid"> Update </button>
+        <br><br>
+
+</mat-dialog-content>

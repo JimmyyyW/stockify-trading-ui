@@ -31,8 +31,8 @@ export class CardsService {
        return this.http.post<any>(`${this.uri}/api/v2/cards/new`, body, this.option);
      }
 
-  removeCard(cardNumber: string) {
-    return this.http.delete<any>(`${this.uri}/api/v2/cards/remove/${cardNumber}`, this.option);
+  removeCard(id: string) {
+    return this.http.delete<any>(`${this.uri}/api/v2/cards/remove/${id}`, this.option);
   }
 
   getUserCards(username: string): Observable<CardDetails[]> {
